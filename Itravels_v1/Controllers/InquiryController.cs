@@ -56,6 +56,22 @@ namespace Itravels_v1.Controllers
         }
 
 
+        [Route("~/api/UpdateInquiryAsync")]
+        [HttpPut]
+        public async Task<ActionResult<bool>> UpdateInquiryAsync([FromBody] InquiryUpdateModel inquiryUpdateModel)
+        {
+            InquiryRepository inquiryRepository = new InquiryRepository();
+            var bl = await inquiryRepository.UpdateInquiryAsync(inquiryUpdateModel);
+
+            if (bl=="0")
+            {
+                return Ok(new { bl, Message = "Success" });
+            }
+
+            return BadRequest(new { bl, Message = "Unsuccessfull" });
+        }
+
+
         // DELETE api/<InquiryController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
